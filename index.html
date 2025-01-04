@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bajrang Sharma - Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            overflow: hidden;
+        }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            z-index: 9999;
+        }
+
+        #loading img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #loading.hidden {
+            display: none;
+        }
+
+        header {
+            background-color: #0078d7;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #0078d7;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            line-height: 1.8;
+        }
+
+        a {
+            color: #0078d7;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #0078d7;
+            color: white;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+
+            footer {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.2rem;
+            }
+
+            body {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+    <img src="IMG-20241122-WA0002.jpg" alt="Bajrang Sharma Logo">
+    Loading...
+    </div>
+
+
+    <header>
+        <h1>Bajrang Sharma</h1>
+        <p>Data Scientist & Software Developer</p>
+    </header>
+
+    <div class="container">
+        <section class="section about">
+            <h2>About Me</h2>
+            <p>Data Scientist with expertise in developing machine learning models, data visualization, and predictive analytics. Proficient in Python, C/C++, Java, R, and SQL, with a strong focus on uncovering actionable insights from complex datasets. Adept at leveraging data to solve business challenges and improve decision-making processes. Seeking to contribute technical and analytical expertise to drive innovation and optimize performance in a dynamic organization.</p>
+        </section>
+
+        <section class="section experience">
+            <h2>Work Experience</h2>
+            <h3>Intern - Aspee Spring Limited, EDP Department</h3>
+            <p><strong>July 1, 2023 - August 31, 2023</strong></p>
+            <ul>
+                <li>Assisted in the development and implementation of electronic data processing systems.</li>
+                <li>Collaborated with the team to analyze data and optimize processes.</li>
+                <li>Gained hands-on experience with data management tools and software.</li>
+            </ul>
+        </section>
+
+        <section class="section projects">
+            <h2>Projects</h2>
+            <ul>
+                <li><strong>Monochromatic Image to RGB Converter:</strong> Developed a Python program to convert grayscale images to RGB using OpenCV and NumPy. Implemented efficient colorization techniques with custom schemes and validated accuracy.</li>
+                <li><strong>Human Activity Recognition:</strong> Built a machine learning model using smartphone sensor data to classify human activities. Preprocessed the UCI HAR dataset and achieved high accuracy with Scikit-learn.</li>
+                <li><strong>Moving Object Detection:</strong> Designed a motion detection system using live camera feeds with CSV-based logging for object tracking. Utilized Pandas for real-time data analysis.</li>
+            </ul>
+        </section>
+
+        <section class="section education">
+            <h2>Education</h2>
+            <ul>
+                <li><strong>Bachelor of Technology (B.Tech) in Artificial Intelligence & Data Science:</strong> World College of Technology & Management, Graduation Year: 2025</li>
+                <li><strong>12th Grade (Non-Medical):</strong> C.B.S.E Board, Percentage: 55%, Year: 2021</li>
+                <li><strong>10th Grade:</strong> C.B.S.E Board, Percentage: 65%, Year: 2019</li>
+            </ul>
+        </section>
+
+        <section class="section skills">
+            <h2>Skills</h2>
+            <ul>
+                <li>Programming Languages: Python, C/C++, Java, R, HTML, CSS</li>
+                <li>Data Science Technologies: OpenCV, NumPy</li>
+                <li>Data Analysis: Data visualization, predictive analytics</li>
+                <li>Machine Learning: Experience with developing machine learning models</li>
+                <li>Tools: Jupyter, TensorFlow, VS Code, Eclipse, Android platform development</li>
+            </ul>
+        </section>
+
+        <section class="section contact">
+            <h2>Contact Me</h2>
+            <div class="contact-info">
+                <p>Address: Surat Nagar Phase 2, Street No. 33, House No. 1995 B, Gurgaon, Haryana, 122001</p>
+                <p>Email: <a href="mailto:bajrangsharma2879@gmail.com">bajrangsharma2879@gmail.com</a></p>
+                <p>Phone: <a href="tel:+918595506517">8595506517</a></p>
+                <p>WhatsApp: <a href="https://wa.me/918595506517">8595506517</a></p>
+                <p>Instagram: <a href="https://www.instagram.com/its__bajrangsharma/" target="_blank">@its__bajrangsharma</a></p>
+                <p>LinkedIn: <a href="https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BZfLOByyiTIWDuKdV5U%2FW9w%3D%3D" target="_blank">LinkedIn Profile</a></p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Bajrang Sharma. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener("load", () => {
+            const loadingScreen = document.getElementById("loading");
+            loadingScreen.classList.add("hidden");
+            document.body.style.overflow = "auto";
+        });
+    </script>
+</body>
+</html>
