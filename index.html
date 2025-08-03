@@ -28,18 +28,45 @@
             align-items: center;
             font-size: 1.5rem;
             z-index: 9999;
+            transition: opacity 0.5s ease-out;
         }
 
         #loading img {
             width: 200px;
             height: auto;
             margin-bottom: 20px;
+            /* Add smooth animation to the logo */
+            animation: logoFloat 2s ease-in-out infinite;
+        }
+
+        /* Add floating animation to the logo */
+        @keyframes logoFloat {
+            0%, 100% { 
+                transform: translateY(0px); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: translateY(-10px); 
+                opacity: 1; 
+            }
+        }
+
+        /* Add pulsing animation to loading text */
+        #loading .loading-text {
+            animation: textPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         #loading.hidden {
-            display: none;
+            opacity: 0;
+            pointer-events: none;
         }
 
+        /* Rest of your existing styles remain the same */
         header {
             background-color: #0078d7;
             color: white;
@@ -116,11 +143,11 @@
 </head>
 <body>
     <div id="loading">
-    <img src="IMG-20241122-WA0002.jpg" alt="Bajrang Sharma Logo">
-    Loading...
+        <img src="IMG-20241122-WA0002.jpg" alt="Bajrang Sharma Logo">
+        <div class="loading-text">Loading...</div>
     </div>
 
-
+    <!-- Rest of your HTML content remains the same -->
     <header>
         <h1>Bajrang Sharma</h1>
         <p>Data Scientist & Software Developer</p>
@@ -190,10 +217,23 @@
     </footer>
 
     <script>
+        // Modified JavaScript to ensure minimum loading time
+        const loadingScreen = document.getElementById("loading");
+        const minimumLoadTime = 3000; // 3 seconds minimum
+        const startTime = Date.now();
+
         window.addEventListener("load", () => {
-            const loadingScreen = document.getElementById("loading");
-            loadingScreen.classList.add("hidden");
-            document.body.style.overflow = "auto";
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, minimumLoadTime - elapsedTime);
+            
+            setTimeout(() => {
+                loadingScreen.classList.add("hidden");
+                // Wait for fade transition to complete before allowing scroll
+                setTimeout(() => {
+                    loadingScreen.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }, 500);
+            }, remainingTime);
         });
     </script>
 </body>
