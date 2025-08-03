@@ -1,240 +1,961 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bajrang Sharma - Portfolio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bajrang Sharma - Modern Portfolio</title>
+  <style>
+    :root {
+      --primary-color: #00d4ff;
+      --secondary-color: #0078d7;
+      --accent-color: #00ffff;
+      --dark-bg: #0a0a0a;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-light: #ffffff;
+      --text-muted: #b0b0b0;
+    }
 
-        #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        #loading img {
-            width: 200px;
-            height: auto;
-            margin-bottom: 20px;
-            /* Add smooth animation to the logo */
-            animation: logoFloat 2s ease-in-out infinite;
-        }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: var(--text-light);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+      height: 100%;
+    }
 
-        /* Add floating animation to the logo */
-        @keyframes logoFloat {
-            0%, 100% { 
-                transform: translateY(0px); 
-                opacity: 0.8; 
-            }
-            50% { 
-                transform: translateY(-10px); 
-                opacity: 1; 
-            }
-        }
+    /* Loading Screen */
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
 
-        /* Add pulsing animation to loading text */
-        #loading .loading-text {
-            animation: textPulse 1.5s ease-in-out infinite;
-        }
+    #loading img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: logoFloat 2s ease-in-out infinite;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    }
 
-        @keyframes textPulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
+    @keyframes logoFloat {
+      0%,
+      100% {
+        transform: translateY(0px);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+    }
 
-        #loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+    #loading .loading-text {
+      animation: textPulse 1.5s ease-in-out infinite;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
 
-        /* Rest of your existing styles remain the same */
-        header {
-            background-color: #0078d7;
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-        }
+    @keyframes textPulse {
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
 
-        .container {
-            padding: 2rem;
-            max-width: 800px;
-            margin: auto;
-        }
+    #loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-        .section {
-            margin-bottom: 2rem;
-        }
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      padding: 10px 20px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
 
-        .section h2 {
-            border-bottom: 2px solid #0078d7;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
 
-        .contact-info {
-            line-height: 1.8;
-        }
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
 
-        a {
-            color: #0078d7;
-            text-decoration: none;
-        }
+    nav a:hover {
+      background: var(--glass-bg);
+      color: var(--accent-color);
+      text-shadow: 0 0 10px var(--accent-color);
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle at center, #16213e, #0a0a0a);
+      overflow: hidden;
+    }
 
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #0078d7;
-            color: white;
-            position: relative;
-        }
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s ease-in-out infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid var(--accent-color);
+      width: 0;
+      animation-name: typing, glow;
+      animation-duration: 3s, 2s;
+      animation-fill-mode: forwards;
+      animation-timing-function: steps(30, end), ease-in-out;
+      animation-delay: 0s, 0s;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
+    @keyframes glow {
+      from {
+        filter: drop-shadow(0 0 20px var(--primary-color));
+      }
+      to {
+        filter: drop-shadow(0 0 30px var(--accent-color));
+      }
+    }
 
-            header {
-                font-size: 1.2rem;
-                padding: 0.5rem 1rem;
-            }
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 18ch;
+      }
+    }
 
-            footer {
-                font-size: 0.8rem;
-            }
-        }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      color: var(--text-muted);
+      animation: fadeIn 1.5s ease forwards;
+      opacity: 0;
+      animation-delay: 3s;
+    }
 
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
 
-            .section h2 {
-                font-size: 1.2rem;
-            }
+    /* Glass Container */
+    .glass-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 20px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(50px);
+    }
 
-            body {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    .glass-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    .glass-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-align: center;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px var(--primary-color);
+    }
+
+    /* About Section */
+    .about-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Experience Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+      padding-left: 40px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 10px;
+      width: 16px;
+      height: 16px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .project-card h3 {
+      color: var(--accent-color);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .tech-tag {
+      background: rgba(0, 212, 255, 0.2);
+      color: var(--accent-color);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(0, 212, 255, 0.3);
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .skill-category {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    .skill-category h3 {
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .skill-item {
+      margin-bottom: 15px;
+    }
+
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 3px;
+      transition: width 2s ease;
+      width: 0;
+    }
+
+    /* Contact Form */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      padding: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+    }
+
+    .contact-info {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      padding: 30px;
+      color: var(--text-muted);
+    }
+
+    .contact-info h3 {
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .contact-info a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-info a:hover {
+      color: var(--accent-color);
+      text-shadow: 0 0 5px var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      margin-top: 60px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 15px;
+      }
+      nav a {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .glass-container {
+        margin: 20px 10px;
+        padding: 25px;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        padding: 8px 15px;
+      }
+      nav ul {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .glass-container {
+        padding: 20px;
+      }
+    }
+
+    /* Cool background animated shapes */
+    .background-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 20%;
+      opacity: 0.15;
+      background: var(--primary-color);
+      animation: floatShapes 10s infinite ease-in-out alternate;
+    }
+
+    .shape:nth-child(1) {
+      width: 150px;
+      height: 150px;
+      top: 10%;
+      left: 20%;
+      animation-delay: 0s;
+      background: linear-gradient(135deg, #00f4ff, #0099cc);
+    }
+
+    .shape:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 30%;
+      left: 70%;
+      animation-delay: 2s;
+      background: linear-gradient(135deg, #005fcc, #00d4ff);
+    }
+
+    .shape:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      left: 40%;
+      animation-delay: 4s;
+      background: linear-gradient(135deg, #00ffff, #0066cc);
+    }
+
+    @keyframes floatShapes {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      50% {
+        transform: translateY(-40px) rotate(180deg) scale(1.1);
+      }
+      100% {
+        transform: translateY(0) rotate(360deg) scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="loading">
-        <img src="IMG-20241122-WA0002.jpg" alt="Bajrang Sharma Logo">
-        <div class="loading-text">Loading...</div>
+  <!-- Loading Screen -->
+  <div id="loading">
+    <img src="IMG-20241122-WA0002.jpg" alt="Bajrang Sharma Logo" />
+    <div class="loading-text">Loading...</div>
+  </div>
+
+  <!-- Cool Background Shapes -->
+  <div class="background-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h1>Bajrang Sharma</h1>
+    <p>Data Scientist & Software Developer</p>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="glass-container">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+      <p>
+        Data Scientist with expertise in developing machine learning models,
+        data visualization, and predictive analytics. Proficient in Python,
+        C/C++, Java, R, and SQL, with a strong focus on uncovering actionable
+        insights from complex datasets. Adept at leveraging data to solve
+        business challenges and improve decision-making processes. Seeking to
+        contribute technical and analytical expertise to drive innovation and
+        optimize performance in a dynamic organization.
+      </p>
     </div>
+  </section>
 
-    <!-- Rest of your HTML content remains the same -->
-    <header>
-        <h1>Bajrang Sharma</h1>
-        <p>Data Scientist & Software Developer</p>
-    </header>
-
-    <div class="container">
-        <section class="section about">
-            <h2>About Me</h2>
-            <p>Data Scientist with expertise in developing machine learning models, data visualization, and predictive analytics. Proficient in Python, C/C++, Java, R, and SQL, with a strong focus on uncovering actionable insights from complex datasets. Adept at leveraging data to solve business challenges and improve decision-making processes. Seeking to contribute technical and analytical expertise to drive innovation and optimize performance in a dynamic organization.</p>
-        </section>
-
-        <section class="section experience">
-            <h2>Work Experience</h2>
-            <h3>Intern - Aspee Spring Limited, EDP Department</h3>
-            <p><strong>July 1, 2023 - August 31, 2023</strong></p>
-            <ul>
-                <li>Assisted in the development and implementation of electronic data processing systems.</li>
-                <li>Collaborated with the team to analyze data and optimize processes.</li>
-                <li>Gained hands-on experience with data management tools and software.</li>
-            </ul>
-        </section>
-
-        <section class="section projects">
-            <h2>Projects</h2>
-            <ul>
-                <li><strong>Monochromatic Image to RGB Converter:</strong> Developed a Python program to convert grayscale images to RGB using OpenCV and NumPy. Implemented efficient colorization techniques with custom schemes and validated accuracy.</li>
-                <li><strong>Human Activity Recognition:</strong> Built a machine learning model using smartphone sensor data to classify human activities. Preprocessed the UCI HAR dataset and achieved high accuracy with Scikit-learn.</li>
-                <li><strong>Moving Object Detection:</strong> Designed a motion detection system using live camera feeds with CSV-based logging for object tracking. Utilized Pandas for real-time data analysis.</li>
-            </ul>
-        </section>
-
-        <section class="section education">
-            <h2>Education</h2>
-            <ul>
-                <li><strong>Bachelor of Technology (B.Tech) in Artificial Intelligence & Data Science:</strong> World College of Technology & Management, Graduation Year: 2025</li>
-                <li><strong>12th Grade (Non-Medical):</strong> C.B.S.E Board, Percentage: 55%, Year: 2021</li>
-                <li><strong>10th Grade:</strong> C.B.S.E Board, Percentage: 65%, Year: 2019</li>
-            </ul>
-        </section>
-
-        <section class="section skills">
-            <h2>Skills</h2>
-            <ul>
-                <li>Programming Languages: Python, C/C++, Java, R, HTML, CSS</li>
-                <li>Data Science Technologies: OpenCV, NumPy</li>
-                <li>Data Analysis: Data visualization, predictive analytics</li>
-                <li>Machine Learning: Experience with developing machine learning models</li>
-                <li>Tools: Jupyter, TensorFlow, VS Code, Eclipse, Android platform development</li>
-            </ul>
-        </section>
-
-        <section class="section contact">
-            <h2>Contact Me</h2>
-            <div class="contact-info">
-                <p>Address: Surat Nagar Phase 2, Street No. 33, House No. 1995 B, Gurgaon, Haryana, 122001</p>
-                <p>Email: <a href="mailto:bajrangsharma2879@gmail.com">bajrangsharma2879@gmail.com</a></p>
-                <p>Phone: <a href="tel:+918595506517">8595506517</a></p>
-                <p>WhatsApp: <a href="https://wa.me/918595506517">8595506517</a></p>
-                <p>Instagram: <a href="https://www.instagram.com/its__bajrangsharma/" target="_blank">@its__bajrangsharma</a></p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BZfLOByyiTIWDuKdV5U%2FW9w%3D%3D" target="_blank">LinkedIn Profile</a></p>
-            </div>
-        </section>
+  <!-- Experience Section -->
+  <section id="experience" class="glass-container">
+    <h2 class="section-title">Work Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Intern - Aspee Spring Limited, EDP Department</h3>
+        <p><strong>July 1, 2023 - August 31, 2023</strong></p>
+        <ul>
+          <li>Assisted in the development and implementation of electronic data processing systems.</li>
+          <li>Collaborated with the team to analyze data and optimize processes.</li>
+          <li>Gained hands-on experience with data management tools and software.</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Bajrang Sharma. All Rights Reserved.</p>
-    </footer>
+  <!-- Projects Section -->
+  <section id="projects" class="glass-container">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Monochromatic Image to RGB Converter</h3>
+        <p>
+          Developed a Python program to convert grayscale images to RGB using OpenCV and NumPy.
+          Implemented efficient colorization techniques with custom schemes and validated accuracy.
+        </p>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">NumPy</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <h3>Human Activity Recognition</h3>
+        <p>
+          Built a machine learning model using smartphone sensor data to classify human activities.
+          Preprocessed the UCI HAR dataset and achieved high accuracy with Scikit-learn.
+        </p>
+        <div class="tech-tags">
+          <span class="tech-tag">Machine Learning</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <h3>Moving Object Detection</h3>
+        <p>
+          Designed a motion detection system using live camera feeds with CSV-based logging for object tracking.
+          Utilized Pandas for real-time data analysis.
+        </p>
+        <div class="tech-tags">
+          <span class="tech-tag">Computer Vision</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Pandas</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Modified JavaScript to ensure minimum loading time
-        const loadingScreen = document.getElementById("loading");
-        const minimumLoadTime = 3000; // 3 seconds minimum
-        const startTime = Date.now();
+  <!-- Education Section -->
+  <section id="education" class="glass-container">
+    <h2 class="section-title">Education</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Bachelor of Technology (B.Tech) in Artificial Intelligence & Data Science</h3>
+        <p><strong>World College of Technology & Management</strong> | Graduation Year: 2025</p>
+      </div>
+      <div class="timeline-item">
+        <h3>12th Grade (Non-Medical)</h3>
+        <p><strong>C.B.S.E Board</strong> | Percentage: 55% | Year: 2021</p>
+      </div>
+      <div class="timeline-item">
+        <h3>10th Grade</h3>
+        <p><strong>C.B.S.E Board</strong> | Percentage: 65% | Year: 2019</p>
+      </div>
+    </div>
+  </section>
 
-        window.addEventListener("load", () => {
-            const elapsedTime = Date.now() - startTime;
-            const remainingTime = Math.max(0, minimumLoadTime - elapsedTime);
-            
-            setTimeout(() => {
-                loadingScreen.classList.add("hidden");
-                // Wait for fade transition to complete before allowing scroll
-                setTimeout(() => {
-                    loadingScreen.style.display = "none";
-                    document.body.style.overflow = "auto";
-                }, 500);
-            }, remainingTime);
-        });
-    </script>
+  <!-- Skills Section -->
+  <section id="skills" class="glass-container">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Programming Languages</h3>
+        <div class="skill-item">
+          <div class="skill-name"><span>Python</span><span>90%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="90"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>C/C++</span><span>80%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="80"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Java</span><span>75%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="75"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>R</span><span>70%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="70"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Data Science & ML</h3>
+        <div class="skill-item">
+          <div class="skill-name"><span>OpenCV</span><span>85%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="85"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>NumPy</span><span>90%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="90"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Data Visualization</span><span>80%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="80"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Machine Learning</span><span>75%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="75"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Tools & Technologies</h3>
+        <div class="skill-item">
+          <div class="skill-name"><span>Jupyter</span><span>90%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="90"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>TensorFlow</span><span>70%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="70"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>VS Code</span><span>95%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="95"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Eclipse</span><span>80%</span></div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-width="80"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="glass-container">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-container">
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>
+          <strong>Address:</strong><br />
+          Surat Nagar Phase 2, Street No. 33, House No. 1995 B<br />
+          Gurgaon, Haryana, 122001
+        </p>
+        <p>
+          <strong>Email:</strong><br />
+          <a href="mailto:bajrangsharma2879@gmail.com">bajrangsharma2879@gmail.com</a>
+        </p>
+        <p>
+          <strong>Phone:</strong><br />
+          <a href="tel:+918595506517">+91 8595506517</a>
+        </p>
+        <p>
+          <strong>WhatsApp:</strong><br />
+          <a href="https://wa.me/918595506517" target="_blank">+91 8595506517</a>
+        </p>
+        <p>
+          <strong>Instagram:</strong><br />
+          <a href="https://www.instagram.com/sharma_ji_ka_beta2879?igsh=cHFnMGU2ZmVteW5m" target="_blank"
+            >@sharma_ji_ka_beta2879</a
+          >
+        </p>
+        <p>
+          <strong>LinkedIn:</strong><br />
+          <a
+            href="https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BZfLOByyiTIWDuKdV5U%2FW9w%3D%3D"
+            target="_blank"
+            >LinkedIn Profile</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Bajrang Sharma. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Loading Screen with minimum time
+    const loadingScreen = document.getElementById('loading');
+    const minimumLoadTime = 3000;
+    const startTime = Date.now();
+
+    window.addEventListener('load', () => {
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, minimumLoadTime - elapsedTime);
+
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          initAnimations();
+        }, 500);
+      }, remainingTime);
+    });
+
+    // Intersection Observer for scroll animations
+    function initAnimations() {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+
+              // Animate skill bars only when skills section appears
+              if (entry.target.querySelectorAll) {
+                const skillBars = entry.target.querySelectorAll('.skill-progress');
+                if (skillBars.length) {
+                  skillBars.forEach((bar) => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                  });
+                }
+              }
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      // Observe all glass containers
+      const containers = document.querySelectorAll('.glass-container');
+      containers.forEach((container) => {
+        observer.observe(container);
+      });
+    }
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('nav a').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Contact form submission simulation
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+
+      submitBtn.textContent = 'Sending...';
+      submitBtn.style.background = 'rgba(0, 212, 255, 0.3)';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        alert('Thank you for your message! I will get back to you soon.');
+        document.getElementById('contactForm').reset();
+
+        submitBtn.textContent = originalText;
+        submitBtn.style.background = 'linear-gradient(45deg, var(--primary-color), var(--accent-color))';
+        submitBtn.disabled = false;
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
